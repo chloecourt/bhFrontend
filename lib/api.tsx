@@ -1,8 +1,3 @@
-/**
- * Get full Strapi URL from path
- * @param {string} path Path of the URL
- * @returns {string} Full Strapi URL
- */
 export function getStrapiURL(path = "") {
   if (!path) return null;
   return `${
@@ -19,15 +14,6 @@ export function getStrapiURL(path = "") {
  */
 
 type fetchMethod = "GET" | "POST" | "DELETE" | "PATCH" | "PUT";
-
-type StrapiData = {
-  title: string;
-  description: null | string;
-  createdAt: string;
-  updatedAt: string;
-  image: object;
-  imageUrl: string;
-};
 
 export async function fetchAPI(path: string, method: fetchMethod = "GET") {
   // Merge default and user options
