@@ -20,6 +20,15 @@ export function getStrapiURL(path = "") {
 
 type fetchMethod = "GET" | "POST" | "DELETE" | "PATCH" | "PUT";
 
+type StrapiData = {
+  title: string;
+  description: null | string;
+  createdAt: string;
+  updatedAt: string;
+  image: object;
+  imageUrl: string;
+};
+
 export async function fetchAPI(path: string, method: fetchMethod = "GET") {
   // Merge default and user options
 

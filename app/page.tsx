@@ -14,25 +14,16 @@ async function getData() {
       console.error(res.status);
     }
     const data = await res.json();
-    console.log({ data });
+    console.log("this is data returned from the fetch request", { data });
     return data;
   } catch (e) {
     console.log(e);
   }
 }
 
-// swr stale while rendering
+// swr stale while revalidate or useEffect to client side render
 
 export default function Page() {
-  useEffect(() => {
-    const hello = async () => {
-      return await getData();
-    };
-
-    const data = hello();
-    console.log({ data });
-  });
-
   return (
     <div className="">
       <div className="relative flex flex-col items-center justify-center h-[3000] w-[3000] ">
