@@ -1,6 +1,3 @@
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
-import { isArray } from "util";
-
 /**
  * includes /api/ in path
  */
@@ -51,9 +48,6 @@ export async function fetchAPI(
     `${path}${populate ? "?populate=*" : ""}`
   )}`;
 
-  console.log({ requestUrl });
-  console.log("mergedOptions: ", mergedOptions);
-
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
 
@@ -63,8 +57,8 @@ export async function fetchAPI(
     throw new Error(`An error occured please try again`);
   }
   const { data } = await response.json();
-  console.log("data returned from fetch: ", data);
-  console.log("this is data[0].attributes.image", !data[0].attributes?.image);
+  // console.log("data returned from fetch: ", data);
+  // console.log("this is data[0].attributes.image", !data[0].attributes?.image);
 
   if (Array.isArray(data) && !data[0].attributes?.image) return data;
   if (Array.isArray(data) && data[0].attributes?.image) {
@@ -84,6 +78,7 @@ export async function fetchAPI(
     return dataWithImages;
   }
 
+  console.log("non array data: ", data.attributes?.image?.data.attributes.url);
   const imageUrl = getStrapiImageUrl(
     data.attributes?.image?.data.attributes.url
   );
