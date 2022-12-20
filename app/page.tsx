@@ -1,8 +1,7 @@
 "use client";
-import { fetchAPI, getStrapiURL } from "../lib/api";
+
 import Image from "next/image";
 import bhIcon from "../public/images/bh-icon-transparent.png";
-import { useEffect } from "react";
 import SubscribeModal from "../components/PopUps/SubscribeModal";
 
 // swr stale while revalidate or useEffect to client side render

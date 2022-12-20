@@ -1,6 +1,5 @@
 import Router from "next/router";
 import { setCookie, getCookie, removeCookies } from "cookies-next";
-import { Z_ASCII } from "zlib";
 
 export const setToken = (data: any) => {
   if (typeof window === "undefined") {

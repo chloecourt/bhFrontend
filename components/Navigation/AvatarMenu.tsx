@@ -2,8 +2,10 @@ import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { classNames } from "../../lib/styling";
-
-const AvatarMenu = () => {
+type AvatarMenuProps = {
+  avatarPix?: string;
+};
+const AvatarMenu = ({ avatarPix }: AvatarMenuProps) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
@@ -11,7 +13,10 @@ const AvatarMenu = () => {
           <span className="sr-only">Open user menu</span>
           <img
             className="h-8 w-8 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            src={
+              avatarPix ||
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            }
             alt=""
           />
         </Menu.Button>

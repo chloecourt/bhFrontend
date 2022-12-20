@@ -1,3 +1,6 @@
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+import { isArray } from "util";
+
 /**
  * includes /api/ in path
  */
@@ -7,6 +10,7 @@ export function getStrapiURL(path = "", api: boolean = true) {
     process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api/"
   }${path}`;
 }
+
 export function getStrapiImageUrl(path = "") {
   if (!path) return null;
   return `${
@@ -29,7 +33,8 @@ type fetchMethod = "GET" | "POST" | "DELETE" | "PATCH" | "PUT";
 export async function fetchAPI(
   path: string,
   method: fetchMethod = "GET",
-  populate: boolean = true
+  populate: boolean = true,
+  bodyData?: object
 ) {
   // Merge default and user options
 
@@ -38,6 +43,7 @@ export async function fetchAPI(
       "Content-Type": "application/json",
     },
     method,
+    ...(bodyData && { body: JSON.stringify(bodyData) }),
   };
 
   // Build request URL
@@ -46,6 +52,7 @@ export async function fetchAPI(
   )}`;
 
   console.log({ requestUrl });
+  console.log("mergedOptions: ", mergedOptions);
 
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
@@ -56,9 +63,30 @@ export async function fetchAPI(
     throw new Error(`An error occured please try again`);
   }
   const { data } = await response.json();
+  console.log("data returned from fetch: ", data);
+  console.log("this is data[0].attributes.image", !data[0].attributes?.image);
+
+  if (Array.isArray(data) && !data[0].attributes?.image) return data;
+  if (Array.isArray(data) && data[0].attributes?.image) {
+    console.log("imageUrl: ", data[0].attributes.image.data[0].attributes.url);
+
+    const dataWithImages = data.map((item) => {
+      return {
+        data: item.id,
+        ...item.attributes,
+        imageUrl: getStrapiImageUrl(
+          data[0].attributes.image.data[0].attributes.url
+        ),
+      };
+    });
+
+    console.log("dataWithImages: ", dataWithImages);
+    return dataWithImages;
+  }
+
   const imageUrl = getStrapiImageUrl(
-    data.attributes.image?.data.attributes.url
+    data.attributes?.image?.data.attributes.url
   );
-  console.log({ imageUrl });
-  return { ...data.attributes, imageUrl };
+
+  return { ...data.attributes, ...(imageUrl && { imageUrl }) };
 }

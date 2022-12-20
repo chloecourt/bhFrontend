@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { navigation } from "../utils/constants";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -15,9 +14,25 @@ import { classNames } from "../lib/styling";
 import { useState } from "react";
 import { setToken } from "../lib/auth";
 import { unsetToken } from "../lib/auth";
+import { fetchAPI } from "../lib/api";
 
 export function Navbar() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    identifier: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    const { identifier, password } = user;
+    // const response = await fetchAPI(`/auth/local`, "POST", false, {
+    //   identifier,
+    //   password,
+    // });
+    // console.log("response: ", response);
+    // setToken(response);
+  };
+
   return (
     <Disclosure
       as="nav"
@@ -95,7 +110,9 @@ export function Navbar() {
                 </Link>
 
                 {/* Profile dropdown */}
-                {user ? (
+                {user.identifier ? (
+                  <AvatarMenu />
+                ) : (
                   <Link
                     href="/login"
                     className="text-gray-900 hover:text-white hover:bg-gray-700
@@ -103,8 +120,6 @@ export function Navbar() {
                   >
                     Login
                   </Link>
-                ) : (
-                  <AvatarMenu />
                 )}
               </div>
             </div>

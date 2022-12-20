@@ -1,13 +1,5 @@
 import { fetchAPI } from "../../lib/api";
-
-type StrapiData = {
-  title: string;
-  description: null | string;
-  createdAt: string;
-  updatedAt: string;
-  image: object;
-  imageUrl: string;
-};
+import { StrapiData } from "../types/types";
 
 async function Page() {
   const data: StrapiData = await fetchAPI("landing-page");
