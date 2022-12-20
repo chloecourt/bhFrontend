@@ -1,7 +1,18 @@
-export function getStrapiURL(path = "") {
+/**
+ * includes /api/ in path
+ */
+export function getStrapiURL(path = "", api: boolean = true) {
   if (!path) return null;
   return `${
-    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api/"
+  }${path}`;
+}
+export function getStrapiImageUrl(path = "") {
+  if (!path) return null;
+  return `${
+    process.env.NEXT_PUBLIC_STRAPI_API_URL
+      ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL.slice(0, -5)}`
+      : "http://localhost:1337"
   }${path}`;
 }
 
@@ -15,7 +26,11 @@ export function getStrapiURL(path = "") {
 
 type fetchMethod = "GET" | "POST" | "DELETE" | "PATCH" | "PUT";
 
-export async function fetchAPI(path: string, method: fetchMethod = "GET") {
+export async function fetchAPI(
+  path: string,
+  method: fetchMethod = "GET",
+  populate: boolean = true
+) {
   // Merge default and user options
 
   const mergedOptions = {
@@ -26,7 +41,11 @@ export async function fetchAPI(path: string, method: fetchMethod = "GET") {
   };
 
   // Build request URL
-  const requestUrl = `${getStrapiURL(`/api/${path}?populate=*`)}`;
+  const requestUrl = `${getStrapiURL(
+    `${path}${populate ? "?populate=*" : ""}`
+  )}`;
+
+  console.log({ requestUrl });
 
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
@@ -37,6 +56,9 @@ export async function fetchAPI(path: string, method: fetchMethod = "GET") {
     throw new Error(`An error occured please try again`);
   }
   const { data } = await response.json();
-  const imageUrl = getStrapiURL(data.attributes.image?.data.attributes.url);
+  const imageUrl = getStrapiImageUrl(
+    data.attributes.image?.data.attributes.url
+  );
+  console.log({ imageUrl });
   return { ...data.attributes, imageUrl };
 }

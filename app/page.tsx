@@ -4,22 +4,6 @@ import Image from "next/image";
 import bhIcon from "../public/images/bh-icon-transparent.png";
 import { useEffect } from "react";
 import SubscribeModal from "../components/PopUps/SubscribeModal";
-export const API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://127.0.0.1:1337";
-
-async function getData() {
-  try {
-    const res = await fetch("http://localhost:1337/api/landing-page");
-    if (!res.ok) {
-      console.error(res.status);
-    }
-    const data = await res.json();
-    console.log("this is data returned from the fetch request", { data });
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 // swr stale while revalidate or useEffect to client side render
 
