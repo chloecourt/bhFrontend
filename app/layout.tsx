@@ -2,7 +2,8 @@
 import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import UserProvider from "../context/UserContext";
+
+import ProviderssWrapper from "./ProviderWrapper";
 export default function RootLayout({
   children,
 }: {
@@ -12,13 +13,13 @@ export default function RootLayout({
     <html>
       <head />
       <body className="bg-red-600">
-        <UserProvider>
+        <ProviderssWrapper>
           <Navbar />
           <main className="flex justify-center items-center mx-auto h-[calc(100%_-_14rem)] w-3/4 p-3">
             {children}
           </main>
           <Footer />
-        </UserProvider>
+        </ProviderssWrapper>
       </body>
     </html>
   );

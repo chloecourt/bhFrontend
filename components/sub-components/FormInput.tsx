@@ -1,9 +1,9 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
 
 type InputAttributesType = {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  ref?: React.RefObject<HTMLInputElement>;
+  name?: string;
   type: string;
   required: boolean;
   placeholder?: string;

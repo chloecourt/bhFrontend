@@ -2,23 +2,29 @@ import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { classNames } from "../../lib/styling";
-type AvatarMenuProps = {
-  avatarPix?: string;
-};
-const AvatarMenu = ({ avatarPix }: AvatarMenuProps) => {
+import { DefaultSession, Session } from "next-auth";
+// type AvatarMenuProps = {
+//   avatarPix?: Session | null;
+// };
+const AvatarMenu = ({ user }: { user: DefaultSession["user"] }) => {
+  // user?.name
+  // user?.email
+  // user.image
+  console.log("session: ", user);
+  console.log("user.image: ", user?.image);
+  console.log("user.name: ", user?.name);
+  const imageUrl =
+    user?.image ||
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+
+  console.log("this is imageUrl: ", imageUrl);
+
   return (
     <Menu as="div" className="relative ml-3">
       <div>
         <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="sr-only">Open user menu</span>
-          <img
-            className="h-8 w-8 rounded-full"
-            src={
-              avatarPix ||
-              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            }
-            alt=""
-          />
+          <img className="h-8 w-8 rounded-full" src={imageUrl} alt="" />
         </Menu.Button>
       </div>
       <Transition

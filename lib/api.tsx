@@ -48,6 +48,8 @@ export async function fetchAPI(
     `${path}${populate ? "?populate=*" : ""}`
   )}`;
 
+  console.log("fetch url: ", requestUrl);
+
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
 
@@ -56,32 +58,40 @@ export async function fetchAPI(
     console.error(response.statusText);
     throw new Error(`An error occured please try again`);
   }
-  const { data } = await response.json();
-  // console.log("data returned from fetch: ", data);
-  // console.log("this is data[0].attributes.image", !data[0].attributes?.image);
+  if (method === "POST") {
+    const data = await response.json();
+    return data;
+  } else if (method === "GET") {
+    const { data } = await response.json();
 
-  if (Array.isArray(data) && !data[0].attributes?.image) return data;
-  if (Array.isArray(data) && data[0].attributes?.image) {
-    console.log("imageUrl: ", data[0].attributes.image.data[0].attributes.url);
+    if (Array.isArray(data) && !data[0].attributes?.image) return data;
+    if (Array.isArray(data) && data[0].attributes?.image) {
+      console.log(
+        "imageUrl: ",
+        data[0].attributes.image.data[0].attributes.url
+      );
 
-    const dataWithImages = data.map((item) => {
-      return {
-        data: item.id,
-        ...item.attributes,
-        imageUrl: getStrapiImageUrl(
-          data[0].attributes.image.data[0].attributes.url
-        ),
-      };
-    });
+      const dataWithImages = data.map((item) => {
+        return {
+          data: item.id,
+          ...item.attributes,
+          imageUrl: getStrapiImageUrl(
+            data[0].attributes.image.data[0].attributes.url
+          ),
+        };
+      });
 
-    console.log("dataWithImages: ", dataWithImages);
-    return dataWithImages;
+      return dataWithImages;
+    }
+
+    console.log(
+      "non array data: ",
+      data.attributes?.image?.data.attributes.url
+    );
+    const imageUrl = getStrapiImageUrl(
+      data.attributes?.image?.data.attributes.url
+    );
+
+    return { ...data.attributes, ...(imageUrl && { imageUrl }) };
   }
-
-  console.log("non array data: ", data.attributes?.image?.data.attributes.url);
-  const imageUrl = getStrapiImageUrl(
-    data.attributes?.image?.data.attributes.url
-  );
-
-  return { ...data.attributes, ...(imageUrl && { imageUrl }) };
 }

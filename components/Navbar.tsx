@@ -15,12 +15,15 @@ import { useState } from "react";
 import { setToken } from "../lib/auth";
 import { unsetToken } from "../lib/auth";
 import { fetchAPI } from "../lib/api";
+import { signOut, useSession } from "next-auth/react";
 
 export function Navbar() {
   const [user, setUser] = useState({
     identifier: "",
     password: "",
   });
+
+  const { data: session } = useSession();
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
@@ -110,8 +113,18 @@ export function Navbar() {
                 </Link>
 
                 {/* Profile dropdown */}
-                {user.identifier ? (
-                  <AvatarMenu />
+                {user.identifier || session ? (
+                  <>
+                    <AvatarMenu user={session?.user} />
+                    <button
+                      className="py-2 px-3"
+                      onClick={() => {
+                        signOut();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <Link
                     href="/login"
