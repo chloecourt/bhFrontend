@@ -38,7 +38,7 @@ export const ProductContainer = ({
           </h3>
           <p className="mt-1 text-sm text-gray-500">{color}</p>
         </div>
-        <p className="text-sm font-medium text-gray-900">{price}</p>
+        <p className="text-sm font-medium text-gray-900">{`$${price}`}</p>
       </div>
     </div>
   );
