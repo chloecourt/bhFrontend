@@ -1,6 +1,6 @@
 import { fetchAPI } from "../../lib/api";
 import { ProductContainer } from "../../components/ProductContainer";
-
+import Link from "next/link";
 /*
 [
   {
@@ -39,20 +39,25 @@ const Page = async () => {
           Customers also purchased
         </h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div
+          className="m-6 grid grid-cols-1 gap-x-7 gap-y-7 sm:grid-cols-2 md:grid-cols-3"
+          // className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+        >
           {products.map(({ id, imageUrl, title, price }: any) => {
-            console.log("imageUrl: ", imageUrl);
+            console.log("id from product: ", id);
             return (
-              <ProductContainer
-                key={id}
-                id={id}
-                imageSrc={imageUrl}
-                href={"#"}
-                imageAlt={title}
-                title={title}
-                price={price}
-                color={"black"}
-              />
+              <Link href={`/merch/${id}`}>
+                <ProductContainer
+                  key={id}
+                  id={id}
+                  imageSrc={imageUrl}
+                  href={"#"}
+                  imageAlt={title}
+                  title={title}
+                  price={price}
+                  color={"black"}
+                />
+              </Link>
             );
           })}
         </div>

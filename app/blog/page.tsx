@@ -7,7 +7,7 @@ export default async () => {
   ];
   return (
     <div>
-      <h1>List of Blogs</h1>
+      <h1 className="text-bold h-2 underline m-3">List of Blogs</h1>
       <ul>
         {blogs.map(({ title, content, id }) => {
           return (
