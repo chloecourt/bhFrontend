@@ -21,10 +21,16 @@ export const Signup = () => {
 
   const handleCreateAccountOnSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      throw new Error("passwords do not match");
+    }
     try {
-      const response = await fetchAPI("auth/local", "POST", false, {});
-      const data = await response.json();
-      console.log("create new user fetch request response: ", data);
+      const data = await fetchAPI("auth/local/register", "POST", false, {
+        username: `${firstName} ${lastName}`,
+        email,
+        password,
+      });
+      console.log("new user successfully created this is data: ", data);
     } catch (e) {
       console.error(e);
     }

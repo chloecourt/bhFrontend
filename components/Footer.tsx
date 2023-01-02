@@ -16,29 +16,27 @@ const onSubmit = (e: any) => {
 
 export const Footer = () => {
   return (
-    <footer className="shadow-inner flex flex-col justify-center w-full h-32 fixed bottom-0 bg-red-600">
-      <div className="flex justify-center">
-        <div className="flex justify-center gap-20">
-          <div className="">
-            <h5 className="bold">Useful Links</h5>
-            <ul>
-              <li>Careers</li>
-              <li>Cookies Policy</li>
-            </ul>
-          </div>
-          <div className="flex flex-col">
-            <form onSubmit={(e) => onSubmit(e)}>
-              <FormInput
-                label="Subscribe"
-                inputAttributes={{
-                  type: "email",
-                  required: false,
-                  placeholder: "Email",
-                  autoComplete: "username",
-                }}
-              />
-            </form>
-          </div>
+    <footer className="shadow-inner flex flex-col justify-center w-full h-38 fixed bottom-0 bg-red-600">
+      <div className="flex justify-center gap-20 m-5">
+        <div className="flex flex-col">
+          <h5 className="bold">Useful Links</h5>
+          <ul>
+            <li>Careers</li>
+            <li>Cookies Policy</li>
+          </ul>
+        </div>
+        <div className="flex flex-col">
+          <form onSubmit={(e) => onSubmit(e)}>
+            <FormInput
+              label="Subscribe"
+              inputAttributes={{
+                type: "email",
+                required: false,
+                placeholder: "Email",
+                autoComplete: "username",
+              }}
+            />
+          </form>
         </div>
       </div>
       <div className="flex flex-row h-8 w-full justify-center items-center gap-3 mb-5">
