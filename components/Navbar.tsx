@@ -12,7 +12,6 @@ import Link from "next/link";
 import AvatarMenu from "./Navigation/AvatarMenu";
 import { classNames } from "../lib/styling";
 import { useState } from "react";
-import { setToken } from "../lib/auth";
 import { unsetToken } from "../lib/auth";
 import { fetchAPI } from "../lib/api";
 import { signOut, useSession } from "next-auth/react";
@@ -119,6 +118,7 @@ export function Navbar() {
                     <button
                       className="py-2 px-3"
                       onClick={() => {
+                        unsetToken();
                         signOut();
                       }}
                     >

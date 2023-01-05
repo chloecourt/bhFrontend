@@ -3,15 +3,18 @@ import FormInput from "../../components/sub-components/FormInput";
 import { useState } from "react";
 import PrimaryBtn from "../../components/PrimaryBtn";
 import { fetchAPI } from "../../lib/api";
+import { useRouter } from "next/router";
+
+const initialUserState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 export const Signup = () => {
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [newUser, setNewUser] = useState(initialUserState);
   const { firstName, lastName, email, password, confirmPassword } = newUser;
 
   const handleNewUserChange = (e: any) => {
@@ -34,6 +37,7 @@ export const Signup = () => {
     } catch (e) {
       console.error(e);
     }
+    setNewUser(initialUserState);
   };
 
   return (

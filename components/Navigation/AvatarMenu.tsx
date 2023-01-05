@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { Fragment } from "react";
 import { classNames } from "../../lib/styling";
 import { DefaultSession, Session } from "next-auth";
+import { signOut } from "next-auth/react";
 // type AvatarMenuProps = {
 //   avatarPix?: Session | null;
 // };
@@ -65,15 +66,15 @@ const AvatarMenu = ({ user }: { user: DefaultSession["user"] }) => {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <Link
-                href="#"
+              <button
+                onClick={() => signOut()}
                 className={classNames(
                   active ? "bg-gray-100" : "",
                   "block px-4 py-2 text-sm text-gray-700"
                 )}
               >
                 Sign out
-              </Link>
+              </button>
             )}
           </Menu.Item>
         </Menu.Items>

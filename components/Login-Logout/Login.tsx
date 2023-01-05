@@ -4,12 +4,14 @@ import { useState } from "react";
 import PrimaryBtn from "../../components/PrimaryBtn";
 import { fetchAPI } from "../../lib/api";
 import { useSession, signIn } from "next-auth/react";
+import { setToken } from "../../lib/auth";
 
 export const Login = () => {
   const initialUserLoginState = { identifier: "", password: "" };
   const [userLogin, setUserLogin] = useState(initialUserLoginState);
   const { identifier, password } = userLogin;
 
+  // session only has name, image, and email data once user signed in
   const { data: session } = useSession();
   console.log("this is session: ", session);
 
@@ -20,14 +22,21 @@ export const Login = () => {
     setUserLogin({ ...userLogin, [name]: value });
   };
 
+  // sigining in normally test@test.com test123
+  // data returns obj { jwt: "jwt", user: { blcoked, confirmed, createdAt, email, id, provider, updatedAt, username }}
   const handleSignInSubmit = async (e: any) => {
     e.preventDefault();
-    const data = await fetchAPI("auth/local", "POST", false, {
-      identifier,
-      password,
-    });
+    try {
+      const data = await fetchAPI("auth/local", "POST", false, {
+        identifier,
+        password,
+      });
+      console.log("client side auth data: ", data);
+      setToken(data);
+    } catch (e) {
+      console.error(e);
+    }
 
-    console.log("client side auth data: ", data);
     setUserLogin(initialUserLoginState);
   };
 
@@ -62,7 +71,9 @@ export const Login = () => {
         <PrimaryBtn title="Submit" type="submit" />
       </form>
       <button
-        onClick={() => signIn()}
+        onClick={() =>
+          signIn("google", { callbackUrl: "http://localhost:3000" })
+        }
         type="button"
         className="border py-2 px-3"
       >

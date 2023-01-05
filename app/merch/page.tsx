@@ -29,6 +29,14 @@ import Link from "next/link";
 */
 
 const Page = async () => {
+  try {
+    const res = await fetch("http://127.0.0.1:1337/api/products");
+    const data = res.json();
+    console.log("this is fetch manual: ", data);
+  } catch (e) {
+    console.log("fetch did not work");
+    console.error(e);
+  }
   const products = await fetchAPI("products", "GET", true);
   console.log("on merch page ", products);
 
@@ -36,7 +44,7 @@ const Page = async () => {
     <div className="flex flex-col">
       <div className="flex flex-col mx-auto my-0 max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold text-gray-900 text-center ">
-          Customers also purchased
+          Inventory
         </h2>
 
         <div
@@ -44,20 +52,19 @@ const Page = async () => {
           // className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
         >
           {products.map(({ id, imageUrl, title, price }: any) => {
-            console.log("id from product: ", id);
             return (
-              <Link href={`/merch/${id}`}>
-                <ProductContainer
-                  key={id}
-                  id={id}
-                  imageSrc={imageUrl}
-                  href={"#"}
-                  imageAlt={title}
-                  title={title}
-                  price={price}
-                  color={"black"}
-                />
-              </Link>
+              // <Link href={`/merch/${id}`}>
+              <ProductContainer
+                key={id}
+                id={id}
+                imageSrc={imageUrl}
+                href={"#"}
+                imageAlt={title}
+                title={title}
+                price={price}
+                color={"black"}
+              />
+              // </Link>
             );
           })}
         </div>

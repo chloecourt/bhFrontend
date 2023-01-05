@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import Auth0Provider from "next-auth/providers/auth0";
+import CredentialsProvider from "next-auth/providers/credentials";
 // import FacebookProvider from "next-auth/providers/facebook";
 // import GithubProvider from "next-auth/providers/github";
 // import TwitterProvider from "next-auth/providers/twitter";
