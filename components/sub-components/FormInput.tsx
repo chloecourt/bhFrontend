@@ -1,5 +1,3 @@
-import React, { MutableRefObject } from "react";
-
 type InputAttributesType = {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
