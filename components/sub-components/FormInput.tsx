@@ -8,15 +8,7 @@ type InputAttributesType = {
   className?: string;
   autoComplete?: string;
 };
-/**
- *
- * @param label: string
- * @param onChange: (e: event)=> void
- * @param type string
- * @param required boolean
- * @param placeholder? string
- * @returns
- */
+
 const FormInput = ({
   label,
   inputAttributes,
@@ -26,7 +18,9 @@ const FormInput = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <label htmlFor={label}>{label}</label>
+      <label className="text-white" htmlFor={label}>
+        {label}
+      </label>
       <input
         {...inputAttributes}
         className={

@@ -63,19 +63,24 @@ export const useFetchUser = () => {
   });
 
   useEffect(() => {
+    // if userState is defined on refresh return
     if (userState !== undefined) {
       return;
     }
-
+    // if userState is undefined and component is mounted get local cookie
     let isMounted = true;
     const resolveUser = async () => {
       const user = await getUserFromLocalCookie();
+      console.log(
+        "this is useFetchUser awaiting response from cookies: ",
+        user
+      );
       if (isMounted) {
         setUser({ user, loading: false });
       }
     };
     resolveUser();
-
+    // when component unmounts set isMounted to false
     return () => {
       isMounted = false;
     };

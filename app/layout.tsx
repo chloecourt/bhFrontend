@@ -1,16 +1,24 @@
 "use client";
+import { Inter as FontSans } from "@next/font/google";
 import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 
 import ProviderssWrapper from "./ProviderWrapper";
+import { cn } from "../utils/utils";
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html className={cn("bg-red-600", fontSans.variable)}>
       <head />
       <body className="bg-red-600">
         <ProviderssWrapper>

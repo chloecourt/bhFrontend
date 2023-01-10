@@ -25,7 +25,7 @@ export const Footer = () => {
             <li>Cookies Policy</li>
           </ul>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-base">
           <form onSubmit={(e) => onSubmit(e)}>
             <FormInput
               label="Subscribe"

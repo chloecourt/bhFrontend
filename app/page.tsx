@@ -12,7 +12,7 @@ export default function Page() {
       <div className="relative flex flex-col items-center justify-center h-[3000] w-[3000] ">
         <Image src={bhIcon} alt="bh-icon" className="" />
       </div>
-      <SubscribeModal />
+      {/* <SubscribeModal /> */}
     </div>
   );
 }

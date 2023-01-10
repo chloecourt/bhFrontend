@@ -2,20 +2,23 @@ import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { classNames } from "../../lib/styling";
-import { DefaultSession, Session } from "next-auth";
 import { signOut } from "next-auth/react";
-// type AvatarMenuProps = {
-//   avatarPix?: Session | null;
-// };
-const AvatarMenu = ({ user }: { user: DefaultSession["user"] }) => {
+
+type SessionUser = {
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
+};
+
+const AvatarMenu = ({ session }: { session?: SessionUser }) => {
   // user?.name
   // user?.email
   // user.image
-  console.log("session: ", user);
-  console.log("user.image: ", user?.image);
-  console.log("user.name: ", user?.name);
+  console.log("session: ", session);
+  console.log("user.image: ", session?.image);
+  console.log("user.name: ", session?.name);
   const imageUrl =
-    user?.image ||
+    session?.image ||
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 
   console.log("this is imageUrl: ", imageUrl);

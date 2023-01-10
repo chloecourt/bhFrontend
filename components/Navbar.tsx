@@ -15,25 +15,16 @@ import { useState } from "react";
 import { unsetToken } from "../lib/auth";
 import { fetchAPI } from "../lib/api";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useFetchUser } from "../context/UserContext";
 
 export function Navbar() {
-  const [user, setUser] = useState({
-    identifier: "",
-    password: "",
-  });
-
+  console.log("navbar mounted");
+  const { user: contextUser, loading } = useFetchUser();
+  console.log("useFetchUser: contextUser", contextUser);
+  console.log("useFetchUser: loading", loading);
+  const router = useRouter();
   const { data: session } = useSession();
-
-  const handleSubmit = async (e: Event) => {
-    e.preventDefault();
-    const { identifier, password } = user;
-    // const response = await fetchAPI(`/auth/local`, "POST", false, {
-    //   identifier,
-    //   password,
-    // });
-    // console.log("response: ", response);
-    // setToken(response);
-  };
 
   return (
     <Disclosure
@@ -87,7 +78,7 @@ export function Navbar() {
                           item.current
                             ? "bg-gray-900 text-white"
                             : "text-gray-800 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                          "px-3 py-2 rounded-md text-base font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -112,14 +103,15 @@ export function Navbar() {
                 </Link>
 
                 {/* Profile dropdown */}
-                {user.identifier || session ? (
+                {session?.user ? (
                   <>
-                    <AvatarMenu user={session?.user} />
+                    <AvatarMenu session={session?.user} />
                     <button
-                      className="py-2 px-3"
+                      className="py-2 px-3 text-base"
                       onClick={() => {
                         unsetToken();
                         signOut();
+                        router.refresh();
                       }}
                     >
                       Logout
@@ -129,7 +121,7 @@ export function Navbar() {
                   <Link
                     href="/login"
                     className="text-gray-900 hover:text-white hover:bg-gray-700
-                    px-3 py-2 rounded-md text-sm font-medium"
+                    px-3 py-2 rounded-md text-base font-medium"
                   >
                     Login
                   </Link>

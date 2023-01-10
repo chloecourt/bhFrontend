@@ -5,8 +5,12 @@ import PrimaryBtn from "../../components/PrimaryBtn";
 import { fetchAPI } from "../../lib/api";
 import { useSession, signIn } from "next-auth/react";
 import { setToken } from "../../lib/auth";
+import { useRouter } from "next/navigation";
+import Toast from "../Toast";
 
 export const Login = () => {
+  const [error, setError] = useState(false);
+  const router = useRouter();
   const initialUserLoginState = { identifier: "", password: "" };
   const [userLogin, setUserLogin] = useState(initialUserLoginState);
   const { identifier, password } = userLogin;
@@ -17,8 +21,6 @@ export const Login = () => {
 
   const handleSignInChange = (event: any) => {
     const { name, value } = event.target;
-    console.log("this is value", value);
-    console.log("this is name", name);
     setUserLogin({ ...userLogin, [name]: value });
   };
 
@@ -26,17 +28,19 @@ export const Login = () => {
   // data returns obj { jwt: "jwt", user: { blcoked, confirmed, createdAt, email, id, provider, updatedAt, username }}
   const handleSignInSubmit = async (e: any) => {
     e.preventDefault();
+
     try {
       const data = await fetchAPI("auth/local", "POST", false, {
         identifier,
         password,
       });
-      console.log("client side auth data: ", data);
       setToken(data);
+      // need to reset userContext to use this user
     } catch (e) {
+      setError(true);
       console.error(e);
+      return;
     }
-
     setUserLogin(initialUserLoginState);
   };
 
@@ -71,14 +75,17 @@ export const Login = () => {
         <PrimaryBtn title="Submit" type="submit" />
       </form>
       <button
-        onClick={() =>
-          signIn("google", { callbackUrl: "http://localhost:3000" })
-        }
+        onClick={() => {
+          signIn("google", {
+            callbackUrl: "http://localhost:3000",
+          });
+        }}
         type="button"
-        className="border py-2 px-3"
+        className="border py-2 px-3 text-white"
       >
         Sign In with Google
       </button>
+      {error && <Toast toast={"WARNING"} />}
     </div>
   );
 };

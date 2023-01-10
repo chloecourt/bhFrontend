@@ -48,15 +48,13 @@ export async function fetchAPI(
     `${path}${populate ? "?populate=*" : ""}`
   )}`;
 
-  console.log("fetch url: ", requestUrl);
-
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
 
   // Handle response
   if (!response.ok) {
     console.error(response.statusText);
-    throw new Error(`An error occured please try again`);
+    throw new Error(`fetchAPI threw error occured please try again`);
   }
   if (method === "POST") {
     const data = await response.json();
@@ -94,4 +92,22 @@ export async function fetchAPI(
 
     return { ...data.attributes, ...(imageUrl && { imageUrl }) };
   }
+}
+
+export async function fetcher(url: string, options = {}) {
+  let response;
+  if (!options) {
+    console.log;
+    response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`response.ok evaluated to ${response.status}`);
+    }
+  } else {
+    response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`response.ok evaluated to ${response.status}`);
+    }
+  }
+  const data = await response.json();
+  return data;
 }
