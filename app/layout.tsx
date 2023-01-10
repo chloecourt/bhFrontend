@@ -20,13 +20,14 @@ export default function RootLayout({
   return (
     <html className={cn("bg-red-600", fontSans.variable)}>
       <head />
-      <body className="bg-red-600">
+      <body className="bg-red-600 min-h-screen">
         <ProviderssWrapper>
           <Navbar />
-          <main className="flex justify-center items-center mx-auto h-[calc(100%_-_14rem)] w-3/4 p-3">
+          <main className="flex justify-center items-center mx-auto">
+            {/* h-[calc(100%_-_14rem)] w-3/4 p-3"> */}
             {children}
+            <Footer />
           </main>
-          <Footer />
         </ProviderssWrapper>
       </body>
     </html>
