@@ -16,16 +16,16 @@ const onSubmit = (e: any) => {
 
 export const Footer = () => {
   return (
-    <footer className="shadow-inner flex flex-col justify-center w-full h-38 fixed bottom-0 bg-red-600">
-      <div className="flex justify-center gap-20 m-5">
-        <div className="flex flex-col">
+    <footer className="shadow-inner flex flex-col justify-center w-full h-38 bg-red-600 fixed bottom-0">
+      <div className=" items-center sm:flex justify-center gap-20 m-5">
+        <div className="flex flex-col ml-2 mt-2">
           <h5 className="bold">Useful Links</h5>
           <ul>
             <li>Careers</li>
             <li>Cookies Policy</li>
           </ul>
         </div>
-        <div className="flex flex-col text-base">
+        <div className="flex flex-col text-base mr-2 mt-2">
           <form onSubmit={(e) => onSubmit(e)}>
             <FormInput
               label="Subscribe"

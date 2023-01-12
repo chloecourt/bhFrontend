@@ -8,12 +8,11 @@ import SubscribeModal from "../components/PopUps/SubscribeModal";
 
 export default function Page() {
   return (
-    <div className="">
-      <div className="relative flex flex-col items-center justify-center px-8">
-        {/* h-[3000] w-[3000] "> */}
-        <Image src={bhIcon} alt="bh-icon" className="" />
-      </div>
-      {/* <SubscribeModal /> */}
+    <div
+      data-testid="landing-page-div"
+      className="relative flex flex-col items-center justify-center my-16"
+    >
+      <Image src={bhIcon} width="900" alt="bh-icon" />
     </div>
   );
 }

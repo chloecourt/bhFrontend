@@ -25,7 +25,7 @@ const FormInput = ({
         {...inputAttributes}
         className={
           inputAttributes.className ||
-          "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-1"
+          "shadow appearance-none border rounded sm:w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline m-1"
         }
       />
     </div>

@@ -29,8 +29,7 @@ export function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-white-800 shadow-lg w-full z-50 block"
-      // className="flex flex-wrap items-center justify-center w-full py-4 md:py-0 px-4 text-lg text-gray-700 bg-white"
+      className="bg-red-600 shadow-lg w-full fixed top-0 z-10"
     >
       {({ open }) => (
         <>

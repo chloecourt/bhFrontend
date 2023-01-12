@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { fetchAPI } from "./api";
 import { fetcher } from "./api";
 
 // const router = useRouter();
@@ -86,3 +87,18 @@ export const getIdFromServerCookie = (req: any) => {
  *
  * https://www.youtube.com/watch?v=8rju99LTUNA&list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ&index=12
  */
+
+/*      NEXT AUTH           */
+export async function nextAuthSignIn({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  const res = await fetchAPI("auth/local", "POST", false, {
+    identifier: email,
+    password,
+  });
+  return res.data;
+}
