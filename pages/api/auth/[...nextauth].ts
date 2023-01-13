@@ -1,8 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Email from "next-auth/providers/email";
-import { signIn } from "next-auth/react";
+import { nextAuthSignIn } from "../../../lib/auth";
+import { fetchStrapiUserData } from "../../../lib/auth";
+
 // import FacebookProvider from "next-auth/providers/facebook";
 // import GithubProvider from "next-auth/providers/github";
 // import TwitterProvider from "next-auth/providers/twitter";
@@ -30,15 +31,23 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        console.log({ credentials });
         if (credentials === null) return null;
         try {
-          const something = await signIn({
+          const { user, jwt } = await nextAuthSignIn({
             email: credentials?.email,
             password: credentials?.password,
           });
+          console.log({ user });
+          // ideally would like to fetch username for site
+          // const resData = await fetchStrapiUserData(
+          //   credentials?.email,
+          //   credentials?.password
+          // );
+          // console.log({ resData });
           return { ...user, jwt };
         } catch (e) {
-          console.error(`${e} &email=${credentials?.email}`);
+          console.error(`error in authorization ${e}`);
           return null;
         }
       },
@@ -46,8 +55,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, token }) => {
-      session.id = token.id;
-      session.jwt = token.jwt;
+      session.id = token.id as string;
+      session.jwt = token.jwt as string;
       return Promise.resolve(session);
     },
     jwt: async ({ token, user }) => {

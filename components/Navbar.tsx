@@ -53,7 +53,7 @@ export function Navbar() {
                       className="hidden h-8 w-auto lg:block"
                       height={32}
                       width={32}
-                      src="/../public/images/piggy.png"
+                      src="/../public/images/bh-mini-icon-white.png"
                       alt="logo"
                     />
                   </Link>
@@ -62,7 +62,7 @@ export function Navbar() {
                       className="block h-8 w-auto lg:hidden"
                       height={32}
                       width={32}
-                      src="/../public/images/piggy.png"
+                      src="/../public/images/bh-mini-icon-white.png"
                       alt="logo"
                     />
                   </Link>
@@ -105,6 +105,7 @@ export function Navbar() {
                 {session?.user ? (
                   <>
                     <AvatarMenu session={session?.user} />
+                    <h1>{session.user.email}</h1>
                     <button
                       className="py-2 px-3 text-base"
                       onClick={() => {

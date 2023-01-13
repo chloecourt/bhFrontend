@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import { fetchAPI } from "./api";
 import { fetcher } from "./api";
 
-// const router = useRouter();
-
 export const setToken = (data: any) => {
   if (typeof window === "undefined") {
     return;
@@ -40,6 +38,7 @@ export const getUserFromLocalCookie = () => {
     })
       .then((data) => {
         console.log("this is data.username: ", data.username);
+        console.log("this worked!");
         return data.username;
       })
       .catch((error) => {
@@ -93,12 +92,49 @@ export async function nextAuthSignIn({
   email,
   password,
 }: {
-  email: string;
-  password: string;
+  email: string | undefined;
+  password: string | undefined;
 }) {
+  console.log({ email, password });
   const res = await fetchAPI("auth/local", "POST", false, {
     identifier: email,
     password,
   });
-  return res.data;
+  return res;
 }
+
+export const fetchStrapiUserData = async (
+  email: string | undefined,
+  password: string | undefined
+) => {
+  // console.log(" did the jwt come in right? ", jwt);
+  // try {
+  //   const res = await fetcher(`http://localhost:3000/users/me`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${jwt}`,
+  //     },
+  //   });
+  //   if (!res.ok) {
+  //     throw new Error(`theres a problem`);
+  //   }
+  // } catch (e) {
+  //   console.error(`YOOOO`, e);
+  // }
+  try {
+    const res = await fetchAPI("auth/local", "POST", false, {
+      identifier: email,
+      password,
+    });
+    if (!res.ok) {
+      throw new Error("issue with fetchStrapiUser");
+    } else {
+      const data = res.json();
+      return data;
+    }
+    // need to reset userContext to use this user
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+};

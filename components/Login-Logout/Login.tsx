@@ -28,20 +28,24 @@ export const Login = () => {
   // data returns obj { jwt: "jwt", user: { blcoked, confirmed, createdAt, email, id, provider, updatedAt, username }}
   const handleSignInSubmit = async (e: any) => {
     e.preventDefault();
-
-    try {
-      const data = await fetchAPI("auth/local", "POST", false, {
-        identifier,
-        password,
-      });
-      setToken(data);
-      // need to reset userContext to use this user
-    } catch (e) {
-      setError(true);
-      console.error(e);
-      return;
-    }
-    setUserLogin(initialUserLoginState);
+    signIn("credentials", {
+      redirect: false,
+      email: identifier,
+      password,
+    });
+    // try {
+    //   const data = await fetchAPI("auth/local", "POST", false, {
+    //     identifier,
+    //     password,
+    //   });
+    //   setToken(data);
+    //   // need to reset userContext to use this user
+    // } catch (e) {
+    //   setError(true);
+    //   console.error(e);
+    //   return;
+    // }
+    // setUserLogin(initialUserLoginState);
   };
 
   return (
