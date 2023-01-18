@@ -18,7 +18,6 @@ const GetInTouch = () => {
           inputAttributes={{
             type: "text",
             required: true,
-            ref: contactFirstName,
             autoComplete: "email",
           }}
         />
@@ -27,7 +26,6 @@ const GetInTouch = () => {
           inputAttributes={{
             type: "text",
             required: true,
-            ref: contactFirstName,
           }}
         />
         <FormInput
@@ -35,7 +33,6 @@ const GetInTouch = () => {
           inputAttributes={{
             type: "email",
             required: true,
-            ref: contactEmail,
             autoComplete: "username",
           }}
         />
