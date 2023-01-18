@@ -105,16 +105,16 @@ export function Navbar() {
                 {session?.user ? (
                   <>
                     <AvatarMenu session={session?.user} />
-                    <h1>{session.user.email}</h1>
+                    {/* <h1>{session.user.email}</h1> */}
                     <button
-                      className="py-2 px-3 text-base"
+                      className="ml-3 py-2 px-3 text-base border border-black"
                       onClick={() => {
                         unsetToken();
                         signOut();
                         router.refresh();
                       }}
                     >
-                      Logout
+                      Log out
                     </button>
                   </>
                 ) : (

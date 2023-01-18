@@ -10,6 +10,16 @@ type SessionUser = {
   image?: string | null | undefined;
 };
 
+const googleIconImage = (
+  url: string | null | undefined
+): string | null | undefined => {
+  if (url?.startsWith("https://lh3.googleusercontent")) {
+    url?.replace("https://", "");
+    console.log("removed https:// : ", url);
+  }
+  return url;
+};
+
 const AvatarMenu = ({ session }: { session?: SessionUser }) => {
   // user?.name
   // user?.email
@@ -17,8 +27,9 @@ const AvatarMenu = ({ session }: { session?: SessionUser }) => {
   console.log("session: ", session);
   console.log("user.image: ", session?.image);
   console.log("user.name: ", session?.name);
+
   const imageUrl =
-    session?.image ||
+    googleIconImage(session?.image) ||
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 
   console.log("this is imageUrl: ", imageUrl);

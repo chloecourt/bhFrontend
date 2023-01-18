@@ -1,5 +1,3 @@
-import { describe } from "node:test";
-
 const getProduct = async (id: string) => {
   return id;
 };
