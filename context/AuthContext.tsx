@@ -20,19 +20,27 @@ const AuthContext = createContext<AuthContextDataType>({
 // better to create a function to call useCo ntext(AuthContext) to prevent errors
 export const useAuthContext = () => useContext(AuthContext);
 
-export default ({ children }: any) => {
+const AuthProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+export default AuthProvider;
+
 //
 
 let userState: any;
 
-const User = createContext({ user: null, loading: false });
+const UserContext = createContext({ user: null, loading: false });
 
-export const UserProvider = ({ value, children }) => {
+export const UserProvider = ({
+  value,
+  children,
+}: {
+  value: any;
+  children: any;
+}) => {
   const { user } = value;
 
   useEffect(() => {
@@ -41,7 +49,5 @@ export const UserProvider = ({ value, children }) => {
     }
   }, []);
 
-  return (
-    <UserProvider.Provider value={value}>{children}</UserProvider.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
