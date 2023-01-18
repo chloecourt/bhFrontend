@@ -1,3 +1,11 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"]
+  "extends": [
+    // "next/babel"
+    "next/core-web-vitals"
+  ]
 }
+
+// https://nextjs.org/docs/basic-features/eslint
+// {
+//   "extends": ["plugin:@next/next/recommended"]
+// }
