@@ -29,11 +29,11 @@ export function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-red-600 shadow-lg w-full fixed top-0 z-10"
+      className="bg-red-600 shadow-lg w-full top-0 z-10 max-h-[10vh]"
     >
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8 max-w-[854px]">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -53,7 +53,7 @@ export function Navbar() {
                       className="hidden h-8 w-auto lg:block"
                       height={32}
                       width={32}
-                      src="/../public/images/bh-mini-icon-white.png"
+                      src="/../public/images/BH-favicon-white.png"
                       alt="logo"
                     />
                   </Link>
@@ -62,7 +62,7 @@ export function Navbar() {
                       className="block h-8 w-auto lg:hidden"
                       height={32}
                       width={32}
-                      src="/../public/images/bh-mini-icon-white.png"
+                      src="/../public/images/BH-favicon-white.png"
                       alt="logo"
                     />
                   </Link>
@@ -91,7 +91,7 @@ export function Navbar() {
                 <Link href="/cart">
                   <button
                     type="button"
-                    className="rounded-full bg-transparent p-1 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-0.5 focus:ring-offset-gray-800"
+                    className="rounded-full bg-transparent p-1 mx-3 text-gray-800 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-0.5 focus:ring-offset-gray-800"
                   >
                     <span className="sr-only">View notifications</span>
                     <ShoppingBagIcon

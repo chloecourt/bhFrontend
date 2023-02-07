@@ -9,7 +9,7 @@ const PrimaryBtn = ({
 }) => {
   return (
     <button
-      className="bg-white text-red-700 font-bold rounded-lg py-2 px-4 my-3 shadow-md"
+      className="bg-white text-red-700 font-bold rounded-lg py-2 px-4 my-3 shadow-md max-w-xs"
       type={type || "button"}
     >
       {title}

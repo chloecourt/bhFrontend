@@ -4,7 +4,7 @@ import getInTouch1 from "../../components/GetInTouch";
 
 const page = () => {
   return (
-    <div>
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <GetInTouch />
     </div>
   );

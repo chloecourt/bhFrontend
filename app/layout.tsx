@@ -18,15 +18,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={cn("bg-red-600", "h-full", fontSans.variable)}>
+    <html className={cn("bg-red-600", "h-screen", fontSans.variable)}>
       <head />
-      <body className="bg-red-600 min-h-screen flex flex-col">
+      <body className="bg-red-600 min-h-screen max-h-screen flex flex-col items-center justify-start">
         <ProviderssWrapper>
           <Navbar />
-          <main data-testid="main" className="flex flex-col">
+          <main data-testid="main" className="items-center justify-start">
             {children}
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </ProviderssWrapper>
       </body>
     </html>
