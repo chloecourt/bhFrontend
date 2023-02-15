@@ -38,7 +38,8 @@ export const authOptions: NextAuthOptions = {
             email: credentials?.email,
             password: credentials?.password,
           });
-          console.log({ user });
+          console.log("manually sign-in with email and pass");
+          console.log("manual sign-in - retrieveing user from strapi: ", user);
           // ideally would like to fetch username for site
           // const resData = await fetchStrapiUserData(
           //   credentials?.email,
@@ -54,8 +55,11 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
-      session.id = token.id as string;
+    session: async ({ session, user, token }) => {
+      console.log("in session -session: ", session);
+      console.log("in session -user: ", user);
+      console.log("in session -token: ", token);
+      session.id = user.id as string;
       session.jwt = token.jwt as string;
       return Promise.resolve(session);
     },
@@ -63,7 +67,7 @@ export const authOptions: NextAuthOptions = {
       const isSignIn = user ? true : false;
       if (isSignIn) {
         token.id = user?.id;
-        token.jwt = user?.jwt;
+        token.jwt = token?.jwt;
       }
       return Promise.resolve(token);
     },
